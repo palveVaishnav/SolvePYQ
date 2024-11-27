@@ -26,7 +26,7 @@ export default function AvailableExams() {
 
     return (
         <div
-            className="p-20 bg-gray-300"
+            className="p-20"
         >
             <div
                 className=""

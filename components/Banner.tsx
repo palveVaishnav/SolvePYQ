@@ -4,10 +4,11 @@ import { useInView, motion } from 'motion/react';
 
 export default function Banner() {
     const ref = useRef(null);
-    const isInView = useInView(ref);
+    const isInView = useInView(ref, { once: true });
     return (
         <div
-            className="p-20 h-screen bg-red-200"
+            className="p-20 h-screen"
+            ref={ref}
         >
             {isInView &&
                 <>
