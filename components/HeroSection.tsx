@@ -11,8 +11,8 @@ export default function Herosection() {
             <div
                 className="max-w-screen-md text-center grid"
             >
+                <span className='text-black bg-blue-400 p-2 rounded-xl w-fit justify-self-center font-bold'>Project is Under-Development, Launching Soon !!</span>
                 <AnimateText text="PRACTICE PREVIOUS YEAR QUESTION PAPER FOR FREE" className='text-[4em]' />
-                {/* <AnimateText text="If you are preparing for a computer based test ( CBT ),We are here to help !!" className='text-xl' /> */}
                 <span
                     className="text-xl"
                 >
