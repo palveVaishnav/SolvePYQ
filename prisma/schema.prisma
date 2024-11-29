@@ -1,0 +1,89 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String  @id @default(cuid())
+  Name       String
+  userName   String  @unique
+  email      String
+  password   String? // will try to use googleProvider, rethink about User Table
+  profilePic String? //some link to an avatar 
+}
+
+model QuestionPaper {
+  id               String    @id @default(cuid())
+  title            String
+  subTitle         String?
+  time             Int
+  noOfQuestions    Int       @default(0)
+  noOfSections     Int       @default(0)
+  year             String
+  totalSubmissions Int
+  // Section inside question paper 
+  Section          Section[]
+}
+
+model Section {
+  id              String        @id @default(cuid())
+  title           String
+  subTitle        String?
+  noOfQuestions   Int?          @default(0)
+  answerType      String?
+  // reference to the paper
+  questionPaper   QuestionPaper @relation(fields: [questionPaperId], references: [id])
+  questionPaperId String
+  //questions inside sections
+  Question        Question[]
+}
+
+// Here, the thing is not all questions are mcq questions, 
+// there are some 'fill in the blank type questions as well'
+// and could be others as well. 
+enum answerType {
+  MCQ
+  FIB
+}
+
+model Question {
+  id         String     @id @default(cuid())
+  // reference to the section
+  section    Section    @relation(fields: [sectionId], references: [id])
+  sectionId  String
+  question   String
+  answerType answerType @default(MCQ)
+  options    String[] // fib type questions will not have any options, check length while displaying questions.
+  mcqAnswer  Int?
+  fibAnswer  String?
+}
+
+// This is also causing redundancy, will look into this later
+// model Question {
+//   id         String       @id @default(cuid())
+//   section    Section      @relation(fields: [sectionId], references: [id])
+//   sectionId  String
+//   question   String
+//   answerType answerType   @default(MCQ)
+//   mcq        MCQQuestion? @relation(fields: [mcqId], references: [id])
+//   mcqId      String?
+//   fib        FIBQuestion? @relation(fields: [fibId], references: [id])
+//   fibId      String?
+// }
+// use answerType or fib type questions will not have any options, check length while displaying questions.
+// model FIBQuestion {
+//   id       String     @id @default(cuid())
+//   answer   String
+//   Question Question[] // causing redundancy  
+// }
+
+// model MCQQuestion {
+//   id       String     @id @default(cuid())
+//   options  String[]
+//   answer   Int
+//   Question Question[] // causing redundancy 
+// }

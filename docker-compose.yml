@@ -1,1 +1,16 @@
-
+version: '3.9'
+services:
+  postgres:
+    image: postgres:15
+    container_name: solvepyq_db
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: solvepyq
+      POSTGRES_PASSWORD: solvepyq123
+      POSTGRES_DB: solvepyqdb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:
