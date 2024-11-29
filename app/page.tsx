@@ -1,5 +1,4 @@
 import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
-// new landing page.. 
 export default function Home() {
   return (
     <BackgroundBeamsWithCollision>
